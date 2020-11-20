@@ -1,4 +1,5 @@
 ﻿using CreditoTiendita.Domain.Models;
+using CreditoTiendita.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -117,6 +118,7 @@ namespace CreditoTiendita.Domain.Persistance.Context
             builder.Entity<FeeType>().ToTable("FeeTypes");
             builder.Entity<FeeType>().HasKey(t => t.Id);
             builder.Entity<FeeType>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<FeeType>().Property(t => t.Name).IsRequired().HasMaxLength(15);
             builder.Entity<FeeType>()
                 .HasMany(ft => ft.Fees)
                 .WithOne(f => f.FeeType)
@@ -130,6 +132,8 @@ namespace CreditoTiendita.Domain.Persistance.Context
                 .HasMany(ft => ft.Accounts)
                 .WithOne(f => f.Period)
                 .HasForeignKey(f => f.PeriodId);
+
+            builder.ApplySnakeCaseNamingConvention();
         }
     }
 }
