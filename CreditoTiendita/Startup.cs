@@ -46,7 +46,11 @@ namespace CreditoTiendita
             services.AddScoped<IFeeRepository, FeeRepository>();
             services.AddScoped<IFeeService, FeeService>();
 
+            services.AddScoped<IPeriodRepository, PeriodRepository>();
+            services.AddScoped<IPeriodService, PeriodService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddRouting(opt => opt.LowercaseUrls = true);
         }

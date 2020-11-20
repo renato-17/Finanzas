@@ -128,6 +128,7 @@ namespace CreditoTiendita.Domain.Persistance.Context
             builder.Entity<Period>().ToTable("Periods");
             builder.Entity<Period>().HasKey(t => t.Id);
             builder.Entity<Period>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Period>().Property(t => t.Type).IsRequired().HasMaxLength(15);
             builder.Entity<Period>()
                 .HasMany(ft => ft.Accounts)
                 .WithOne(f => f.Period)
