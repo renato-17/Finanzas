@@ -43,6 +43,20 @@ namespace CreditoTiendita.Controllers
         }
 
         [SwaggerOperation(
+           Summary = "Get a Fee",
+           Description = "Get an specific Fee by id",
+           OperationId = "GetFeeById",
+           Tags = new[] { "fees" }
+           )]
+        [HttpGet("{id}")]
+        public async Task<FeeResource> GetByFeeId(int id)
+        {
+            var fee = await _feeService.GetById(id);
+            var resource = _mapper.Map<Fee, FeeResource>(fee.Resource);
+            return resource;
+        }
+
+        [SwaggerOperation(
            Summary = "Create  a fee",
            Description = "Create a new fee",
            OperationId = "CreateFee",
