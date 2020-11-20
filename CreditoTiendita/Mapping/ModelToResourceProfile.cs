@@ -13,6 +13,7 @@ namespace CreditoTiendita.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<FeeType, FeeTypeResource>();
+            CreateMap<Fee, FeeResource>();
         }
     }
 }

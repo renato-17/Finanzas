@@ -13,7 +13,7 @@ namespace CreditoTiendita.Domain.Models
 
 
         //Relation with FeeType
-        public int? FeeTypeId { get; set; }
+        public int FeeTypeId { get; set; }
         public FeeType FeeType { get; set; }
         //Relation with Account
         public int? AccountId { get; set; }

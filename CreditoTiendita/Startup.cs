@@ -39,8 +39,12 @@ namespace CreditoTiendita
             {
                 options.UseMySQL(Configuration.GetConnectionString("MySQLConnection"));
             });
+
             services.AddScoped<IFeeTypeRepository, FeeTypeRepository>();
             services.AddScoped<IFeeTypeService, FeeTypeService>();
+
+            services.AddScoped<IFeeRepository, FeeRepository>();
+            services.AddScoped<IFeeService, FeeService>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
