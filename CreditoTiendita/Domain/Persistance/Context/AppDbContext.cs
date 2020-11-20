@@ -101,6 +101,7 @@ namespace CreditoTiendita.Domain.Persistance.Context
             builder.Entity<TransactionType>().ToTable("TransactionTypes");
             builder.Entity<TransactionType>().HasKey(t => t.Id);
             builder.Entity<TransactionType>().Property(t => t.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<TransactionType>().Property(t => t.Name).IsRequired().HasMaxLength(50);
             builder.Entity<TransactionType>().Property(t => t.Description).IsRequired().HasMaxLength(50);
             builder.Entity<TransactionType>()
                 .HasMany(tt => tt.Transactions)
