@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CreditoTiendita.Domain.Models
+namespace CreditoTiendita.Resources
 {
-    public class Currency
+    public class CurrencyResource
     {
         public int Id { get; set; }
         public char Symbol { get; set; }
         public string Code { get; set; }
 
-        public IList<Account> Accounts { get; set; } = new List<Account>();
     }
-
 }

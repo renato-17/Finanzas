@@ -64,10 +64,6 @@ namespace CreditoTiendita.Domain.Persistance.Context
                 .WithOne(ad => ad.Account)
                 .HasForeignKey(ad => ad.AccountId);
             builder.Entity<Account>()
-                .HasOne(a => a.Currency)
-                .WithOne(c => c.Account)
-                .HasForeignKey<Currency>(c => c.AccountId);
-            builder.Entity<Account>()
                 .HasOne(a => a.Fee)
                 .WithOne(f => f.Account)
                 .HasForeignKey<Fee>(f => f.AccountId);
@@ -88,6 +84,10 @@ namespace CreditoTiendita.Domain.Persistance.Context
             builder.Entity<Currency>().HasKey(ac => ac.Id);
             builder.Entity<Currency>().Property(ac => ac.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Currency>().Property(ac => ac.Code).IsConcurrencyToken();
+            builder.Entity<Currency>()
+                .HasMany(c => c.Accounts)
+                .WithOne(a => a.Currency)
+                .HasForeignKey(a => a.CurrencyId);
 
             //Transactions
             builder.Entity<Transaction>().ToTable("Transactions");
