@@ -18,6 +18,8 @@ namespace CreditoTiendita.Mapping
             CreateMap<SavePeriodResource, Period>();
             CreateMap<SaveTransactionTypeResource, TransactionType>();
             CreateMap<SaveCurrencyResource, Currency>();
+            CreateMap<SaveClientResource, Client>();
+            CreateMap<SaveAccountResource, Account>();
         }
     }
 }

@@ -22,14 +22,14 @@ namespace CreditoTiendita.Services
 
         public async Task<CurrencyResponse> DeleteAsync(int id)
         {
-            var existingcurrency = await _currencyRepository.FindById(id);
-            if (existingcurrency == null)
+            var existingCurrency = await _currencyRepository.FindById(id);
+            if (existingCurrency == null)
                 return new CurrencyResponse("currency not found");
             try
             {
-                _currencyRepository.Remove(existingcurrency);
+                _currencyRepository.Remove(existingCurrency);
                 await _unitOfWork.CompleteAsync();
-                return new CurrencyResponse(existingcurrency);
+                return new CurrencyResponse(existingCurrency);
             }
             catch (Exception ex)
             {
@@ -39,10 +39,10 @@ namespace CreditoTiendita.Services
 
         public async Task<CurrencyResponse> GetById(int id)
         {
-            var existingcurrency = await _currencyRepository.FindById(id);
-            if (existingcurrency == null)
+            var existingCurrency = await _currencyRepository.FindById(id);
+            if (existingCurrency == null)
                 return new CurrencyResponse("currency not found");
-            return new CurrencyResponse(existingcurrency);
+            return new CurrencyResponse(existingCurrency);
         }
 
         public async Task<IEnumerable<Currency>> ListAsync()
@@ -67,18 +67,18 @@ namespace CreditoTiendita.Services
 
         public async Task<CurrencyResponse> UpdateAsync(Currency currency, int id)
         {
-            var existingcurrency = await _currencyRepository.FindById(id);
-            if (existingcurrency == null)
+            var existingCurrency = await _currencyRepository.FindById(id);
+            if (existingCurrency == null)
                 return new CurrencyResponse("currency not found");
             
-            existingcurrency.Code = currency.Code;
-            existingcurrency.Symbol = currency.Symbol;
+            existingCurrency.Code = currency.Code;
+            existingCurrency.Symbol = currency.Symbol;
 
             try
             {
-                _currencyRepository.Update(existingcurrency);
+                _currencyRepository.Update(existingCurrency);
                 await _unitOfWork.CompleteAsync();
-                return new CurrencyResponse(existingcurrency);
+                return new CurrencyResponse(existingCurrency);
             }
             catch (Exception ex)
             {
