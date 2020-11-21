@@ -13,7 +13,7 @@ namespace CreditoTiendita.Domain.Models
         public float Amount { get; set; }
 
         //Relation with TransactionType
-        public int? TransactionTypeId { get; set; }
+        public int TransactionTypeId { get; set; }
         public TransactionType TransactionType { get; set; }
         //Relation with Account
         public int? AccountId { get; set; }

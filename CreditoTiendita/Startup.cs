@@ -49,6 +49,9 @@ namespace CreditoTiendita
             services.AddScoped<IPeriodRepository, PeriodRepository>();
             services.AddScoped<IPeriodService, PeriodService>();
 
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
+
             services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
             services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 
