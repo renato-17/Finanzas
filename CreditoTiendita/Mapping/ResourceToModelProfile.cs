@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CreditoTiendita.Domain.Models;
 using CreditoTiendita.Resources;
+using CreditoTiendita.Resources.SaveResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace CreditoTiendita.Mapping
             CreateMap<SaveFeeResource, Fee>();
             CreateMap<SavePeriodResource, Period>();
             CreateMap<SaveTransactionTypeResource, TransactionType>();
+            CreateMap<SaveCurrencyResource, Currency>();
         }
     }
 }
