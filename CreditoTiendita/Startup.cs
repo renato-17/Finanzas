@@ -33,7 +33,7 @@ namespace CreditoTiendita
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomSwagger();
+            
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -52,10 +52,29 @@ namespace CreditoTiendita
             services.AddScoped<ITransactionTypeRepository, TransactionTypeRepository>();
             services.AddScoped<ITransactionTypeService, TransactionTypeService>();
 
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<IAccountStatusRepository, AccountStatusRepository>();
+            services.AddScoped<IAccountStatusService, AccountStatusService>();
+
+            services.AddScoped<IAditionalCostRepository, AditionalCostRepository>();
+            services.AddScoped<IAditionalCostService, AditionalCostService>();
+
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IClientService, ClientService>();
+
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper(typeof(Startup));
             services.AddRouting(opt => opt.LowercaseUrls = true);
+            services.AddCustomSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

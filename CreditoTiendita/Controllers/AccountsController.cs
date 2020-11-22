@@ -28,19 +28,19 @@ namespace CreditoTiendita.Controllers
             _mapper = mapper;
         }
 
-        [SwaggerOperation(
-            Summary = "List Accounts",
-            Description = "List of accounts",
-            OperationId = "ListAccountss",
-            Tags = new[] { "accounts" }
-            )]
-        [HttpGet]
-        public async Task<IEnumerable<AccountResource>> GetAllAsync()
-        {
-            var accounts = await _accountService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<Account>, IEnumerable<AccountResource>>(accounts);
-            return resources;
-        }
+        //[SwaggerOperation(
+        //    Summary = "List Accounts",
+        //    Description = "List of accounts",
+        //    OperationId = "ListAccountss",
+        //    Tags = new[] { "accounts" }
+        //    )]
+        //[HttpGet]
+        //public async Task<IEnumerable<AccountResource>> GetAllAsync()
+        //{
+        //    var accounts = await _accountService.ListAsync();
+        //    var resources = _mapper.Map<IEnumerable<Account>, IEnumerable<AccountResource>>(accounts);
+        //    return resources;
+        //}
 
         [SwaggerOperation(
            Summary = "Get an Account",
@@ -49,7 +49,7 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "accounts" }
            )]
         [HttpGet]
-        public async Task<AccountResource> GetByClientId(int clientId)
+        public async Task<AccountResource> GetByClientId(string clientId)
         {
             var account = await _accountService.GetByClientId(clientId);
             var resource = _mapper.Map<Account, AccountResource>(account.Resource);
@@ -63,7 +63,7 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "accounts" }
            )]
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource, int clientId)
+        public async Task<IActionResult> PostAsync([FromBody] SaveAccountResource resource, string clientId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetMessages());
@@ -85,7 +85,7 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "accounts" }
            )]
         [HttpPut]
-        public async Task<IActionResult> PutAsync([FromBody] SaveAccountResource resource, int clientId)
+        public async Task<IActionResult> PutAsync([FromBody] SaveAccountResource resource, string clientId)
         {
             var account = _mapper.Map<SaveAccountResource, Account>(resource);
             var result = await _accountService.UpdateAsync(clientId, resource.CurrencyId, resource.PeriodId, account);
@@ -103,7 +103,7 @@ namespace CreditoTiendita.Controllers
          Tags = new[] { "accounts" }
          )]
         [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(int clientId)
+        public async Task<IActionResult> DeleteAsync(string clientId)
         {
             var result = await _accountService.DeleteAsync(clientId);
 

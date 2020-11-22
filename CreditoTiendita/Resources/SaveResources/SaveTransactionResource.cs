@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace CreditoTiendita.Resources.SaveResources
 {
-    public class SaveAccountResource
+    public class SaveTransactionResource
     {
         [Required]
-        public float UsedCredit { get; set; }
+        public DateTime Date { get; set; }
         [Required]
-        public float AvailableCredit { get; set; }
+        [MaxLength(15)]
+        public string Description { get; set; }
         [Required]
-        public int CurrencyId { get; set; }
+        public float Amount { get; set; }
         [Required]
-        public int PeriodId { get; set; }
+        public int TransactionTypeId { get; set; }
     }
 }

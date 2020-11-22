@@ -10,9 +10,9 @@ namespace CreditoTiendita.Domain.Services
     public interface IAccountService
     {
         Task<IEnumerable<Account>> ListAsync();
-        Task<AccountResponse> GetByClientId(int clientId);
-        Task<AccountResponse> SaveAsync(int clientId,int currencyId, int periodId, Account account);
-        Task<AccountResponse> UpdateAsync(int clientId, int currencyId, int periodId, Account account);
-        Task<AccountResponse> DeleteAsync(int clientId);
+        Task<AccountResponse> GetByClientId(string clientId);
+        Task<AccountResponse> SaveAsync(string clientId,int currencyId, int periodId, Account account);
+        Task<AccountResponse> UpdateAsync(string clientId, int currencyId, int periodId, Account account);
+        Task<AccountResponse> DeleteAsync(string clientId);
     }
 }

@@ -9,7 +9,8 @@ namespace CreditoTiendita.Domain.Repositories
     public interface IAccountRepository
     {
         Task<IEnumerable<Account>> ListAsync();
-        Task<Account> FindByClientId(int id);
+        Task<Account> FindByClientId(string accountId);
+        Task<Account> FindById(int id);
         Task AddAsync(Account account);
         void Update(Account account);
         void Remove(Account account);

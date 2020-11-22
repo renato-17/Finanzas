@@ -10,7 +10,7 @@ namespace CreditoTiendita.Resources.SaveResources
     {
         [Required]
         [MaxLength(8)]
-        public int Dni { get; set; }
+        public string Dni { get; set; }
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

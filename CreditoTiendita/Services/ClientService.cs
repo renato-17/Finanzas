@@ -20,7 +20,7 @@ namespace CreditoTiendita.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ClientResponse> DeleteAsync(int id)
+        public async Task<ClientResponse> DeleteAsync(string id)
         {
             var existingClient = await _clientRepository.FindById(id);
             if (existingClient == null)
@@ -38,7 +38,7 @@ namespace CreditoTiendita.Services
             }
         }
 
-        public async Task<ClientResponse> GetById(int id)
+        public async Task<ClientResponse> GetById(string id)
         {
             var existingClient = await _clientRepository.FindById(id);
             if (existingClient == null)
@@ -65,7 +65,7 @@ namespace CreditoTiendita.Services
             }
         }
 
-        public async Task<ClientResponse> UpdateAsync(Client client, int id)
+        public async Task<ClientResponse> UpdateAsync(Client client, string id)
         {
             var existingClient = await _clientRepository.FindById(id);
             if (existingClient == null)

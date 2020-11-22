@@ -20,14 +20,19 @@ namespace CreditoTiendita.Persistance.Repositories
             await _context.Accounts.AddAsync(account);
         }
 
-        public async Task<Account> FindByClientId(int id)
+        public async Task<Account> FindByClientId(string clientId)
         {
             return await _context.Accounts
-                .Where(a => a.ClientId == id)
+                .Where(a => a.ClientId == clientId)
                 .Include(a=>a.Currency)
                 .Include(a=>a.Fee)
                 .Include(a=>a.Period)
                 .FirstAsync();
+        }
+
+        public async Task<Account> FindById(int id)
+        {
+            return await _context.Accounts.FindAsync(id);
         }
 
         public async Task<IEnumerable<Account>> ListAsync()

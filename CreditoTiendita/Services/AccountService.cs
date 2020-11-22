@@ -26,7 +26,7 @@ namespace CreditoTiendita.Services
             _periodRepository = periodRepository;
         }
 
-        public async Task<AccountResponse> DeleteAsync(int clientId)
+        public async Task<AccountResponse> DeleteAsync(string clientId)
         {
             var existingClient = await _clientRepository.FindById(clientId);
             if (existingClient == null)
@@ -46,7 +46,7 @@ namespace CreditoTiendita.Services
             }
         }
 
-        public async Task<AccountResponse> GetByClientId(int clientId)
+        public async Task<AccountResponse> GetByClientId(string clientId)
         {
             var existingClient = await _clientRepository.FindById(clientId);
             if (existingClient == null)
@@ -60,7 +60,7 @@ namespace CreditoTiendita.Services
             return await _accountRepository.ListAsync();
         }
 
-        public async Task<AccountResponse> SaveAsync(int clientId, int currencyId, int periodId, Account account)
+        public async Task<AccountResponse> SaveAsync(string clientId, int currencyId, int periodId, Account account)
         {
             var existingClient = await _clientRepository.FindById(clientId);
             if (existingClient == null)
@@ -70,7 +70,7 @@ namespace CreditoTiendita.Services
             if (existingCurrency == null)
                 return new AccountResponse("Currency not found");
 
-            var existingPeriod = await _periodRepository.FindById(clientId);
+            var existingPeriod = await _periodRepository.FindById(periodId);
             if (existingPeriod == null)
                 return new AccountResponse("Period not found");
 
@@ -93,7 +93,7 @@ namespace CreditoTiendita.Services
             }
         }
 
-        public async Task<AccountResponse> UpdateAsync(int clientId, int currencyId, int periodId, Account account)
+        public async Task<AccountResponse> UpdateAsync(string clientId, int currencyId, int periodId, Account account)
         {
             var existingClient = await _clientRepository.FindById(clientId);
             if (existingClient == null)
@@ -103,7 +103,7 @@ namespace CreditoTiendita.Services
             if (existingCurrency == null)
                 return new AccountResponse("Currency not found");
 
-            var existingPeriod = await _periodRepository.FindById(clientId);
+            var existingPeriod = await _periodRepository.FindById(periodId);
             if (existingPeriod == null)
                 return new AccountResponse("Period not found");
 

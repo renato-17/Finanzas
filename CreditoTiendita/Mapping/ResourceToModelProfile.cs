@@ -20,6 +20,9 @@ namespace CreditoTiendita.Mapping
             CreateMap<SaveCurrencyResource, Currency>();
             CreateMap<SaveClientResource, Client>();
             CreateMap<SaveAccountResource, Account>();
+            CreateMap<SaveTransactionResource, Transaction>();
+            CreateMap<SaveAditionalCostResource, AditionalCost>();
+            CreateMap<SaveAccountStatusResource, AccountStatus>();
         }
     }
 }

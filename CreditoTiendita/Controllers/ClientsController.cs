@@ -29,7 +29,7 @@ namespace CreditoTiendita.Controllers
         }
 
         [SwaggerOperation(
-            Summary = "List Currencies",
+            Summary = "List Clients",
             Description = "List of clients",
             OperationId = "ListCurrencies",
             Tags = new[] { "clients" }
@@ -49,7 +49,7 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "clients" }
            )]
         [HttpGet("{id}")]
-        public async Task<ClientResource> GetByClientId(int id)
+        public async Task<ClientResource> GetByClientId(string id)
         {
             var client = await _clientService.GetById(id);
             var resource = _mapper.Map<Client, ClientResource>(client.Resource);
@@ -81,11 +81,11 @@ namespace CreditoTiendita.Controllers
         [SwaggerOperation(
            Summary = "Update client",
            Description = "Update an specific client",
-           OperationId = "CreateClient",
+           OperationId = "UpdateClient",
            Tags = new[] { "clients" }
            )]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromBody] SaveClientResource resource, int id)
+        public async Task<IActionResult> PutAsync([FromBody] SaveClientResource resource, string id)
         {
             var client = _mapper.Map<SaveClientResource, Client>(resource);
             var result = await _clientService.UpdateAsync(client, id);
@@ -103,7 +103,7 @@ namespace CreditoTiendita.Controllers
          Tags = new[] { "clients" }
          )]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
             var result = await _clientService.DeleteAsync(id);
 

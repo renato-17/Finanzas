@@ -9,7 +9,7 @@ namespace CreditoTiendita.Domain.Repositories
     public interface IClientRepository
     {
         Task<IEnumerable<Client>> ListAsync();
-        Task<Client> FindById(int id);
+        Task<Client> FindById(string id);
         Task AddAsync(Client client);
         void Update(Client client);
         void Remove(Client client);

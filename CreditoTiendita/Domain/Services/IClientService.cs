@@ -10,9 +10,9 @@ namespace CreditoTiendita.Domain.Services
     public interface IClientService
     {
         Task<IEnumerable<Client>> ListAsync();
-        Task<ClientResponse> GetById(int id);
+        Task<ClientResponse> GetById(string id);
         Task<ClientResponse> SaveAsync(Client client);
-        Task<ClientResponse> UpdateAsync(Client client, int id);
-        Task<ClientResponse> DeleteAsync(int id);
+        Task<ClientResponse> UpdateAsync(Client client, string id);
+        Task<ClientResponse> DeleteAsync(string id);
     }
 }

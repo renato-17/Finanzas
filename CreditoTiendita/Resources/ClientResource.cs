@@ -7,7 +7,7 @@ namespace CreditoTiendita.Resources
 {
     public class ClientResource
     {
-        public int Dni { get; set; }
+        public string Dni { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }

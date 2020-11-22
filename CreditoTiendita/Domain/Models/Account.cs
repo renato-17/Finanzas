@@ -24,7 +24,7 @@ namespace CreditoTiendita.Domain.Models
         public int PeriodId { get; set; }
         public Period Period { get; set; }
 
-        public int ClientId { get; set; }
+        public string ClientId { get; set; }
         public Client Client { get; set; }
     }
 }

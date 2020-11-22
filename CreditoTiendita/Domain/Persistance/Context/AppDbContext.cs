@@ -33,6 +33,7 @@ namespace CreditoTiendita.Domain.Persistance.Context
             //Client
             builder.Entity<Client>().ToTable("Clients");
             builder.Entity<Client>().HasKey(p => p.Dni);
+            builder.Entity<Client>().Property(p => p.Dni).HasMaxLength(8);
             builder.Entity<Client>().Property(p => p.Name).IsRequired().HasMaxLength(50);
             builder.Entity<Client>().Property(p => p.LastName).IsRequired().HasMaxLength(50);
             builder.Entity<Client>().Property(p => p.Dni).IsRequired().HasMaxLength(8);
