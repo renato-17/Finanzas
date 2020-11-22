@@ -16,7 +16,7 @@ namespace CreditoTiendita.Domain.Models
         public int? TransactionTypeId { get; set; }
         public TransactionType TransactionType { get; set; }
         //Relation with Account
-        public int? AccounteId { get; set; }
+        public int? AccountId { get; set; }
         public Account Account { get; set; }
     }
 }
