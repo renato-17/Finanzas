@@ -12,12 +12,14 @@ namespace CreditoTiendita.Domain.Models
         public string Description { get; set; }
         public float Amount { get; set; }
         public float Payment { get; set; }
+        public bool Payed { get; set; }
 
         //Relation with TransactionType
-        public int? TransactionTypeId { get; set; }
+        public int TransactionTypeId { get; set; }
         public TransactionType TransactionType { get; set; }
+
         //Relation with Account
-        public int? AccountId { get; set; }
+        public int AccountId { get; set; }
         public Account Account { get; set; }
     }
 }

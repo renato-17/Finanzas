@@ -33,7 +33,7 @@ namespace CreditoTiendita
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -70,6 +70,8 @@ namespace CreditoTiendita
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICurrencyService, CurrencyService>();
 
+            services.AddScoped<IPaymentService, PaymentService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper(typeof(Startup));
@@ -88,6 +90,11 @@ namespace CreditoTiendita
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.SetIsOriginAllowed(origin => true)
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials());
 
             app.UseAuthorization();
 

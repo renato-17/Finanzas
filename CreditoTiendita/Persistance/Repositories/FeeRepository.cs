@@ -22,7 +22,10 @@ namespace CreditoTiendita.Persistance.Repositories
 
         public async Task<Fee> FindById(int id)
         {
-            return await _context.Fees.FindAsync(id);
+            return await _context.Fees
+                .Where(f => f.Id == id)
+                .Include(f => f.FeeType)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Fee>> ListAsync()

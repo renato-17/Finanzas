@@ -11,7 +11,7 @@ namespace CreditoTiendita.Domain.Services
     {
         Task<IEnumerable<Fee>> ListAsync();
         Task<FeeResponse> GetById(int id);
-        Task<FeeResponse> SaveAsync(Fee fee, int feeTypeId);
+        Task<FeeResponse> SaveAsync(Fee fee, int feeTypeId, int accountId);
         Task<FeeResponse> UpdateAsync(Fee fee, int id);
         Task<FeeResponse> DeleteAsync(int id);
     }

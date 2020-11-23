@@ -77,7 +77,7 @@ namespace CreditoTiendita.Services
             existingClient.Birthdate = client.Birthdate;
             existingClient.PhoneNumber = client.PhoneNumber;
             existingClient.Address = client.Address;
-            existingClient.Mail = client.Password;
+
 
             try
             {

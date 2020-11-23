@@ -22,12 +22,24 @@ namespace CreditoTiendita.Persistance.Repositories
 
         public async Task<Transaction> FindById(int id)
         {
-            return await _context.Transactions.FindAsync(id);
+            return await _context.Transactions
+                .Where(t => t.Id == id)
+                .Include(t => t.TransactionType)
+                .Include(t => t.Account)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Transaction>> ListAsync()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.Transactions.Include(t=>t.TransactionType).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Transaction>> ListByAccountIdAsync(int accountId)
+        {
+            return await _context.Transactions
+             .Where(tr => tr.AccountId == accountId)
+             .Include(t=>t.TransactionType)
+             .ToListAsync();
         }
 
         public void Remove(Transaction transaction)

@@ -10,7 +10,7 @@ namespace CreditoTiendita.Domain.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public float Amount { get; set; }
-
+        public bool Payed { get; set; }
         public int AccountId { get; set; }
         public Account Account { get; set; }
     }

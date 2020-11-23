@@ -11,5 +11,8 @@ namespace CreditoTiendita.Resources
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public float Amount { get; set; }
+        public float Payment { get; set; }
+        public bool Payed { get; set; }
+        public TransactionTypeResource TransactionType { get; set; }
     }
 }

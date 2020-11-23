@@ -25,12 +25,6 @@ namespace CreditoTiendita.Resources.SaveResources
         [Required]
         [MaxLength(100)]
         public string Address { get; set; }
-        [Required]
-        [MaxLength(50)]
-        public string Mail { get; set; }
-        [Required]
-        [MaxLength(30)]
-        public string Password { get; set; }
 
     }
 }

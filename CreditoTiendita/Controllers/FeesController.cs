@@ -16,7 +16,7 @@ namespace CreditoTiendita.Controllers
 {
 
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/accounts/{accountId}/[controller]")]
     [ApiController]
     public class FeesController : ControllerBase
     {
@@ -64,12 +64,13 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "fees" }
            )]
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveFeeResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveFeeResource resource, int accountId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetMessages());
             var fee = _mapper.Map<SaveFeeResource, Fee>(resource);
-            var result = await _feeService.SaveAsync(fee, resource.FeeTypeId);
+
+            var result = await _feeService.SaveAsync(fee, resource.FeeTypeId, accountId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var feeResource = _mapper.Map<Fee, FeeResource>(fee);

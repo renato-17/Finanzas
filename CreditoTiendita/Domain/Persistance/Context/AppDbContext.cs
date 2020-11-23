@@ -40,8 +40,6 @@ namespace CreditoTiendita.Domain.Persistance.Context
             builder.Entity<Client>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(13);
             builder.Entity<Client>().Property(p => p.Address).IsRequired().HasMaxLength(100);
             builder.Entity<Client>().Property(p => p.Birthdate).IsRequired();
-            builder.Entity<Client>().Property(p => p.Mail).IsRequired().HasMaxLength(60);
-            builder.Entity<Client>().Property(p => p.Password).IsRequired();
             builder.Entity<Client>()
                 .HasOne(c => c.Account)
                 .WithOne(a => a.Client)

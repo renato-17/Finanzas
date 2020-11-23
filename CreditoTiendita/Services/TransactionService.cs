@@ -12,13 +12,15 @@ namespace CreditoTiendita.Services
     public class TransactionService: ITransactionService
     {
         private readonly ITransactionRepository _transactionRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly ITransactionTypeRepository _transactionTypeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TransactionService(ITransactionRepository transactionRepository, ITransactionTypeRepository transactionTypeRepository, IUnitOfWork unitOfWork)
+        public TransactionService(ITransactionRepository transactionRepository, ITransactionTypeRepository transactionTypeRepository, IAccountRepository accountRepository,IUnitOfWork unitOfWork)
         {
             _transactionRepository = transactionRepository;
             _transactionTypeRepository = transactionTypeRepository;
+            _accountRepository = accountRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -52,12 +54,26 @@ namespace CreditoTiendita.Services
             return await _transactionRepository.ListAsync();
         }
 
-        public async Task<TransactionResponse> SaveAsync(Transaction transaction, int transactionTypeId)
+        public async Task<IEnumerable<Transaction>> ListByAccountIdAsync(int accountId)
         {
+            return await _transactionRepository.ListByAccountIdAsync(accountId);
+        }
+
+        public async Task<TransactionResponse> SaveAsync(Transaction transaction, int transactionTypeId, int accountId)
+        {
+            var existingAccount = await _accountRepository.FindById(accountId);
+            if (existingAccount == null)
+                return new TransactionResponse("Account not found");
+
             var existingTransactionType = await _transactionTypeRepository.FindById(transactionTypeId);
             if (existingTransactionType == null)
                 return new TransactionResponse("TransactionType not found");
+
             transaction.TransactionType = existingTransactionType;
+            transaction.Account = existingAccount;
+
+            if (existingTransactionType.Name == "Pago")
+                transaction.Payed = true;
 
             try
             {
@@ -80,6 +96,8 @@ namespace CreditoTiendita.Services
             existingTransaction.Date  = transaction.Date;
             existingTransaction.Description = transaction.Description;
             existingTransaction.Amount = transaction.Amount;
+            existingTransaction.Payment = transaction.Payment;
+            existingTransaction.Payed = transaction.Payed;
 
             try
             {

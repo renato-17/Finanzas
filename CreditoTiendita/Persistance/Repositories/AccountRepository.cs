@@ -26,18 +26,28 @@ namespace CreditoTiendita.Persistance.Repositories
                 .Where(a => a.ClientId == clientId)
                 .Include(a=>a.Currency)
                 .Include(a=>a.Fee)
+                .ThenInclude(a=>a.FeeType)
                 .Include(a=>a.Period)
                 .FirstAsync();
         }
 
         public async Task<Account> FindById(int id)
         {
-            return await _context.Accounts.FindAsync(id);
+            return await _context.Accounts
+                .Where(a => a.Id == id)
+                .Include(a => a.Currency)
+                .Include(a => a.Fee)
+                .Include(a => a.Period)
+                .FirstAsync(); ;
         }
 
         public async Task<IEnumerable<Account>> ListAsync()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.Accounts
+                .Include(a => a.Currency)
+                .Include(a => a.Fee)
+                .Include(a => a.Period)
+                .ToListAsync();
         }
 
         public void Remove(Account account)

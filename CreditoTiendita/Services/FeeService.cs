@@ -12,14 +12,16 @@ namespace CreditoTiendita.Services
     public class FeeService : IFeeService
     {
         private readonly IFeeRepository _feeRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IFeeTypeRepository _feeTypeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public FeeService(IFeeRepository feeRepository, IFeeTypeRepository feeTypeRepository, IUnitOfWork unitOfWork)
+        public FeeService(IFeeRepository feeRepository, IFeeTypeRepository feeTypeRepository, IUnitOfWork unitOfWork, IAccountRepository accountRepository)
         {
             _feeRepository = feeRepository;
             _feeTypeRepository = feeTypeRepository;
             _unitOfWork = unitOfWork;
+            _accountRepository = accountRepository;
         }
 
         public async Task<FeeResponse> DeleteAsync(int id)
@@ -52,12 +54,21 @@ namespace CreditoTiendita.Services
             return await _feeRepository.ListAsync();
         }
 
-        public async Task<FeeResponse> SaveAsync(Fee fee, int feeTypeId)
+        public async Task<FeeResponse> SaveAsync(Fee fee, int feeTypeId, int accountId)
         {
+            var existingAccount = await _accountRepository.FindById(accountId);
+            if (existingAccount == null)
+                return new FeeResponse("Account not found");
+
             var existingFeeType = await _feeTypeRepository.FindById(feeTypeId);
             if (existingFeeType == null)
                 return new FeeResponse("FeeType not found");
+
+            fee.Account = existingAccount;
+            fee.AccountId = accountId;
             fee.FeeType = existingFeeType;
+            fee.FeeTypeId = feeTypeId;
+
             try
             {
                 await _feeRepository.AddAsync(fee);
@@ -78,6 +89,13 @@ namespace CreditoTiendita.Services
             
             //Se le deberia agregar un feeTypeid para validad si existe y luego cambiar el objeto y el id
             existingFee.Percentage = fee.Percentage;
+
+            var existingFeeType = await _feeTypeRepository.FindById(fee.FeeTypeId);
+            if (existingFeeType == null)
+                return new FeeResponse("FeeType not found");
+
+            existingFee.FeeType = fee.FeeType;
+            existingFee.FeeTypeId = fee.FeeTypeId;
 
             try
             {

@@ -10,8 +10,8 @@ namespace CreditoTiendita.Resources
         public int Id { get; set; }
         public float UsedCredit { get; set; }
         public float AvailableCredit { get; set; }
-        public FeeResource FeeResource { get; set; }
-        public CurrencyResource CurrencyResource { get; set; }
-        public PeriodResource PeriodResource { get; set; }
+        public FeeResource Fee { get; set; }
+        public CurrencyResource Currency{ get; set; }
+        public PeriodResource Period{ get; set; }
     }
 }

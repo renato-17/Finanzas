@@ -48,12 +48,14 @@ namespace CreditoTiendita.Services
 
         public async Task<AccountResponse> GetByClientId(string clientId)
         {
-            var existingClient = await _clientRepository.FindById(clientId);
-            if (existingClient == null)
-                return new AccountResponse("Client not found");
 
-            return new AccountResponse(existingClient.Account);
+            var existingAccount = await _accountRepository.FindByClientId(clientId);
+            if (existingAccount == null)
+                return new AccountResponse("Client or account not found");
+
+            return new AccountResponse(existingAccount);
         }
+
 
         public async Task<IEnumerable<Account>> ListAsync()
         {
