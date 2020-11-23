@@ -30,6 +30,13 @@ namespace CreditoTiendita.Persistance.Repositories
             return await _context.Transactions.ToListAsync();
         }
 
+        public async Task<IEnumerable<Transaction>> ListByAccountIdAsync(int accountId)
+        {
+            return await _context.Transactions
+             .Where(tr => tr.AccountId == accountId)
+                .ToListAsync();
+        }
+
         public void Remove(Transaction transaction)
         {
             _context.Transactions.Remove(transaction);

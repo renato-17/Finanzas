@@ -9,6 +9,7 @@ namespace CreditoTiendita.Domain.Repositories
     public interface ITransactionRepository
     {
         Task<IEnumerable<Transaction>> ListAsync();
+        Task<IEnumerable<Transaction>> ListByAccountIdAsync(int accountId);
         Task<Transaction> FindById(int id);
         Task AddAsync(Transaction transaction);
         void Update(Transaction transaction);

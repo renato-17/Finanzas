@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace CreditoTiendita.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/accounts/{accountId}/[controller]")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
@@ -35,9 +35,9 @@ namespace CreditoTiendita.Controllers
             Tags = new[] { "Transactions" }
             )]
         [HttpGet]
-        public async Task<IEnumerable<TransactionResource>> GetAllAsync()
+        public async Task<IEnumerable<TransactionResource>> GetAllAsync(int accountId)
         {
-            var transactions = await _transactionService.ListAsync();
+            var transactions = await _transactionService.ListByAccountIdAsync(accountId);
             var resources = _mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionResource>>(transactions);
             return resources;
         }
@@ -63,12 +63,12 @@ namespace CreditoTiendita.Controllers
            Tags = new[] { "Transactions" }
            )]
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] SaveTransactionResource resource)
+        public async Task<IActionResult> PostAsync([FromBody] SaveTransactionResource resource, int accountId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetMessages());
             var transaction = _mapper.Map<SaveTransactionResource, Transaction>(resource);
-            var result = await _transactionService.SaveAsync(transaction, resource.TransactionTypeId);
+            var result = await _transactionService.SaveAsync(transaction, resource.TransactionTypeId, accountId);
             if (!result.Success)
                 return BadRequest(result.Message);
             var transactionResource = _mapper.Map<Transaction, TransactionResource>(transaction);

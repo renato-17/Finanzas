@@ -10,8 +10,9 @@ namespace CreditoTiendita.Domain.Services
     public interface ITransactionService
     {
         Task<IEnumerable<Transaction>> ListAsync();
+        Task<IEnumerable<Transaction>> ListByAccountIdAsync(int accountId);
         Task<TransactionResponse> GetById(int id);
-        Task<TransactionResponse> SaveAsync(Transaction transaction, int transactionTypeId);
+        Task<TransactionResponse> SaveAsync(Transaction transaction, int transactionTypeId, int accountId);
         Task<TransactionResponse> UpdateAsync(Transaction Transaction, int id);
         Task<TransactionResponse> DeleteAsync(int id);
     }
