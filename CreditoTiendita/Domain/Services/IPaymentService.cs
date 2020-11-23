@@ -10,6 +10,6 @@ namespace CreditoTiendita.Domain.Services
     public interface IPaymentService
     {
         Task<PaymentResponse> PayDebt(Transaction transaction, string clientId, int transactionTypeId);
-        Task<IEnumerable<Transaction>> GenerateAccountStatus(int statusId, string clientId);
+        Task<GenerateAccountStatusResponse> GenerateAccountStatus(int statusId, string clientId);
     }
 }

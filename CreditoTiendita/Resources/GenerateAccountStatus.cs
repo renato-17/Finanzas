@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 namespace CreditoTiendita.Resources
 {
-    public class AccountStatusResource
+    public class GenerateAccountStatus
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public float TotalPayment { get; set; }
+        public IList<TransactionResource> Transactions { get; set; } = new List<TransactionResource>();
+
     }
 }

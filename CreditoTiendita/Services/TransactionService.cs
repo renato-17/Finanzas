@@ -73,10 +73,22 @@ namespace CreditoTiendita.Services
             transaction.Account = existingAccount;
 
             if (existingTransactionType.Name == "Pago")
+            {
                 transaction.Payed = true;
+            }
+            else
+            {
+                if (transaction.Amount > existingAccount.AvailableCredit)
+                    return new TransactionResponse("You don't have enough credit");
+
+
+                existingAccount.AvailableCredit -= transaction.Amount;
+                existingAccount.UsedCredit = transaction.Amount;
+            }
 
             try
             {
+                _accountRepository.Update(existingAccount);
                 await _transactionRepository.AddAsync(transaction);
                 await _unitOfWork.CompleteAsync();
                 return new TransactionResponse(transaction);

@@ -29,17 +29,42 @@ namespace CreditoTiendita.Services
             _transactionTypeRepository = transactionTypeRepository;
         }
 
-        public async Task<IEnumerable<Transaction>> GenerateAccountStatus(int statusId, string clientId)
+        public async Task<GenerateAccountStatusResponse> GenerateAccountStatus(int statusId, string clientId)
         {
+            float totalPayment = 0;
+
             var account = await _accountRepository.FindByClientId(clientId);
             var accountStatus = await _accountStatusRepository.FindByIdAndAccountId(account.Id,statusId);
+
+            var fee = account.Fee;
+            if (fee == null)
+                return new GenerateAccountStatusResponse();
+           
+            var period = account.Period;
 
             var transactions = await _transactionRepository.ListByAccountIdAsync(account.Id);
             transactions = transactions.Where(t =>
            CompareDates(t.Date, accountStatus.StartDate) > 0 &&
            CompareDates(t.Date, accountStatus.EndDate) < 0);
 
-            return transactions;
+            transactions.ToList().ForEach( (a) =>
+            {
+                if (!a.Payed) { 
+                    a.Payment = CalculatePayment(a.Amount, fee, a.Date,accountStatus.EndDate, period);
+                    totalPayment += a.Payment;
+                }
+            });
+
+            var newAccountStatus = new GenerateAccountStatusResponse
+            {
+                Id = accountStatus.Id,
+                StartDate = accountStatus.StartDate,
+                EndDate = accountStatus.EndDate,
+                TotalPayment = totalPayment,
+                Transactions = (IList<Transaction>)transactions
+            };
+
+            return newAccountStatus;
         }
 
         public async Task<PaymentResponse> PayDebt(Transaction transaction, string clientId, int transactionTypeId)
@@ -69,7 +94,16 @@ namespace CreditoTiendita.Services
                 return new PaymentResponse("Fee not found, please enter a fee");
 
             var period = account.Period;
-            
+
+
+            if (account.AvailableCredit + paymentAmount > account.AvailableCredit + account.UsedCredit)
+            {
+                account.AvailableCredit += account.UsedCredit;
+            }
+            else
+            {
+                account.AvailableCredit += paymentAmount;
+            }
 
             var transactions = await _transactionRepository.ListByAccountIdAsync(account.Id);
             transactions = transactions.Where(
@@ -79,6 +113,8 @@ namespace CreditoTiendita.Services
 
             if(transactions.ToList().Count == 0)
                 return new PaymentResponse("There is nothing to pay");
+
+
 
             transactions.ToList().ForEach(async (a) =>
             {
@@ -108,9 +144,12 @@ namespace CreditoTiendita.Services
             });
 
             transaction.Payed = true;
+            
+           
 
             try
             {
+                _accountRepository.Update(account);
                 await _transactionRepository.AddAsync(transaction);
                 await _unitOfWork.CompleteAsync();
                 return new PaymentResponse(clientId, paymentAmount);

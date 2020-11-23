@@ -33,7 +33,7 @@ namespace CreditoTiendita
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.ActiveCors();
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -91,10 +91,7 @@ namespace CreditoTiendita
 
             app.UseRouting();
 
-            app.UseCors(x => x.SetIsOriginAllowed(origin => true)
-           .AllowAnyMethod()
-           .AllowAnyHeader()
-           .AllowCredentials());
+            app.UseCors();
 
             app.UseAuthorization();
 
