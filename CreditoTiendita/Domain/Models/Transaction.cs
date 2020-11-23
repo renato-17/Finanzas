@@ -11,6 +11,7 @@ namespace CreditoTiendita.Domain.Models
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public float Amount { get; set; }
+        public float Payment { get; set; }
 
         //Relation with TransactionType
         public int? TransactionTypeId { get; set; }

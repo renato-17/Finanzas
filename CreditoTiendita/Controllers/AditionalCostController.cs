@@ -15,7 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace CreditoTiendita.Controllers
 {
     [Produces("application/json")]
-    [Route("api/accounts/{accountId}[controller]")]
+    [Route("api/accounts/{accountId}/[controller]")]
     [ApiController]
     public class AditionalCostController : ControllerBase
     {

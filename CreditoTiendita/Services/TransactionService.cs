@@ -58,6 +58,7 @@ namespace CreditoTiendita.Services
             if (existingTransactionType == null)
                 return new TransactionResponse("TransactionType not found");
             transaction.TransactionType = existingTransactionType;
+
             try
             {
                 await _transactionRepository.AddAsync(transaction);
