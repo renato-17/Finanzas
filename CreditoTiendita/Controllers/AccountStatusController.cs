@@ -82,7 +82,7 @@ namespace CreditoTiendita.Controllers
         [SwaggerOperation(
            Summary = "Update accountStatus",
            Description = "Update an specific accountStatus",
-           OperationId = "CreateAccountStatus",
+           OperationId = "UpdateAccountStatus",
            Tags = new[] { "accountStatuses" }
            )]
         [HttpPut("{accountStatusId}")]

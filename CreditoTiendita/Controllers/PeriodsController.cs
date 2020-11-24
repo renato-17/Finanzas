@@ -78,7 +78,7 @@ namespace CreditoTiendita.Controllers
         [SwaggerOperation(
            Summary = "Update Period",
            Description = "Update an specific Period",
-           OperationId = "CreatePeriod",
+           OperationId = "UpdatePeriod",
            Tags = new[] { "periods" }
            )]
         [HttpPut("{id}")]

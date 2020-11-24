@@ -77,7 +77,7 @@ namespace CreditoTiendita.Controllers
         [SwaggerOperation(
            Summary = "Update TransactionType",
            Description = "Update an specific TransactionType",
-           OperationId = "CreateTransactionType",
+           OperationId = "UpdateTransactionType",
            Tags = new[] { "transactionTypes" }
            )]
         [HttpPut("{id}")]

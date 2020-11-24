@@ -11,8 +11,6 @@ namespace CreditoTiendita.Resources.SaveResources
         [Required]
         public float Percentage { get; set; }
         [Required]
-        public DateTime Date { get; set; }
-        [Required]
         public int FeeTypeId { get; set; }
     }
 }

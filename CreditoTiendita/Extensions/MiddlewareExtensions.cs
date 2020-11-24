@@ -41,5 +41,23 @@ namespace CreditoTiendita.Extensions
             });
             return app;
         }
+
+        public static IServiceCollection ActiveCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://meetyourroommateapi.azurewebsites.net",
+                                          "http://localhost:8080")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
+
+            return services;
+        }
+
     }
 }

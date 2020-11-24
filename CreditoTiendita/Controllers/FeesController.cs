@@ -80,14 +80,14 @@ namespace CreditoTiendita.Controllers
         [SwaggerOperation(
            Summary = "Update fee",
            Description = "Update an specific fee",
-           OperationId = "CreateFee",
+           OperationId = "UpdateFee",
            Tags = new[] { "fees" }
            )]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync([FromBody] SaveFeeResource resource, int id)
+        [HttpPut]
+        public async Task<IActionResult> PutAsync([FromBody] SaveFeeResource resource, int accountId)
         {
             var fee = _mapper.Map<SaveFeeResource, Fee>(resource);
-            var result = await _feeService.UpdateAsync(fee, id);
+            var result = await _feeService.UpdateAsync(fee, accountId);
 
             if (!result.Success)
                 return BadRequest(result.Message);

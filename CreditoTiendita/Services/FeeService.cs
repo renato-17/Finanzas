@@ -83,7 +83,11 @@ namespace CreditoTiendita.Services
 
         public async Task<FeeResponse> UpdateAsync(Fee fee, int id)
         {
-            var existingFee = await _feeRepository.FindById(id);
+            var existingAccount = await _accountRepository.FindById(id);
+            if (existingAccount == null)
+                return new FeeResponse("Account not found");
+
+            var existingFee = existingAccount.Fee;
             if (existingFee == null)
                 return new FeeResponse("Fee not found");
             

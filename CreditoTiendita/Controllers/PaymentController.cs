@@ -36,7 +36,7 @@ namespace CreditoTiendita.Controllers
             )]
         [Route("api/clients/{clientId}/payment")]
         [HttpPost]
-        public async Task<IActionResult> payDebts([FromBody] SaveTransactionResource  resource, string clientId)
+        public async Task<IActionResult> PayDebts([FromBody] SaveTransactionResource  resource, string clientId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetMessages());
@@ -59,11 +59,22 @@ namespace CreditoTiendita.Controllers
             )]
         [Route("api/clients/{clientId}/account-status/{statusId}")]
         [HttpGet]
-        public async Task<IEnumerable<TransactionResource>> GetAllAsync(string clientId, int statusId)
+        public async Task<GenerateAccountStatus> GetAllAsync(string clientId, int statusId)
         {
-            var transactions = await _paymentService.GenerateAccountStatus(statusId,clientId);
-            var resources = _mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionResource>>(transactions);
-            return resources;
+            var statusResponse = await _paymentService.GenerateAccountStatus(statusId,clientId);
+            var transactions = _mapper.Map<IList<Transaction>, IList<TransactionResource>>(statusResponse.Transactions);
+
+
+            var generateAccount = new GenerateAccountStatus
+            {
+                Id = statusResponse.Id,
+                StartDate = statusResponse.StartDate,
+                EndDate = statusResponse.EndDate,
+                TotalPayment = statusResponse.TotalPayment,
+                Transactions = transactions
+            };
+
+            return generateAccount;
         }
 
     }
